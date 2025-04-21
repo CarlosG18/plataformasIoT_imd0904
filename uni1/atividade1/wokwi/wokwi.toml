@@ -1,0 +1,10 @@
+[target]
+name = "esp32"
+
+[build]
+toolchain = "esp-idf"
+
+[wokwi]
+version = 1
+firmware = 'path-to-your-firmware.hex'
+elf = 'path-to-your-firmware.elf'

@@ -5,7 +5,6 @@
 #include "esp_spi_flash.h"
 #include "driver/uart.h"
 #include "driver/gpio.h"
-#include "driver/adc.h"
 
 // CODIGO EM C PARA O SENSOR ULTRASONICO
 #define TRIGGER_PIN GPIO_NUM_27
@@ -54,8 +53,7 @@ long ping_cm(){
   gpio_set_level(GPIO_NUM_27, 0); // retirada do pulso do trigger
 
   // lendo o valor do echo
-  //int valor = adc1_get_raw(ADC1_CHANNEL_6);
-  int valor = gpio_get_level(ECHO_PIN);
+  int valor = adc1_get_raw(ADC1_CHANNEL_6);
   
   while(!valor){
     tim = micros();
@@ -94,5 +92,3 @@ void app_main(void){ //setup do codigo
     uart_write_bytes(UART_NUM_1, "cm", strlen("cm"));
   }
 };
-
-
