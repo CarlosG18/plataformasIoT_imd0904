@@ -46,7 +46,6 @@ long ping_cm(){
   tim = micros_c();
   //ets_delay_us(10);
   //time = esp_timer_get_time();
-  //
   while(micros_c()-tim<10);
   gpio_set_level(GPIO_NUM_27, 0); // retirada do pulso do trigger
 
