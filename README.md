@@ -15,6 +15,7 @@ Na Unidade 1 da disciplina de Plataformas de Hardware para IoT, foi apresentada 
 ### 🎯 Atividades/projetos
 
 - [📌 Atividade prática 2](./uni1/atividade1/descricao.md)
+- [📌 Atividade prática - gravando o Firmware para trabalhar com micropython](./uni1/praticas/micropython.md)
 
 ## 🚀 Unidade II
 
