@@ -16,9 +16,10 @@ Este projeto combina o uso de um **sensor de presença PIR (HC-SR501)** com um *
 
 ## 🧪 Simulação
 <p align="center">
-  <img src="" alt="simulacao">
+  <img src="https://github.com/CarlosG18/plataformasIoT_imd0904/blob/main/uni2/simulacao_workiwi.PNG" alt="simulacao">
 </p>
 * A simulação do circuito e funcionamento está disponível na plataforma Wokwi:
+
 👉 [Acesse a simulação aqui](https://wokwi.com/projects/431564958342974465)
 
 ---
