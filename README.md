@@ -27,9 +27,5 @@ Na Unidade 1 da disciplina de Plataformas de Hardware para IoT, foi apresentada 
 
 ### 🎯 Atividades/projetos
 
-- [📌 Atividade 3](./uni3/atividade1.md)
-
-## 🛠️ Projeto Final
-
-- [📌 Projeto Final](./proj_final/projeto_final.md)
+- [📌 Projeto Final](./uni3/projeto_final.md)
 
