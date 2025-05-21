@@ -21,7 +21,7 @@ Na Unidade 1 da disciplina de Plataformas de Hardware para IoT, foi apresentada 
 
 ### 🎯 Atividades/projetos
 
-- [📌 Atividade 2](./uni2/projeto.md)
+- [📌 Projeto: Monitoramento com Sensor de Presença e Sensor de Temperatura e Umidade](./uni2/projeto.md)
 
 ## 🚀 Unidade III
 
