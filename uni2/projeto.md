@@ -36,9 +36,10 @@ O circuito foi montado em uma protoboard com base na simulação. A ligação do
 
 ## 🔗 Comunicação
 
-* A comunicação entre o ESP32 e os sensores ocorre via **pinos digitais**.
-* O sensor PIR envia um sinal digital **HIGH/LOW** ao detectar presença.
-* O sensor DHT11/DHT22 utiliza **protocolo digital de uma via (single-wire)** para enviar os dados de temperatura e umidade.
+- MQTT
+broker - assinantes e publicadores: [mosquitto online e publico](https://test.mosquitto.org/)
+client: [mqttx](https://mqttx.app/web-client#/recent_connections) 
+
 
 ---
 
