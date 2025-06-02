@@ -1,21 +1,24 @@
-#include <wifi.h>
+#include <WiFi.h>
+#include <WiFiClient.h>
 #include "DHTesp.h"
-#include <PubSubClient>
+#include <PubSubClient.h>
 
 const int DHT_PIN = 15;
 const int PIN_PRESENCA = 2;
 
 DHTesp dhtSensor;
 
-const char* ssid = "npiti-iot";
+const char* ssid = "NPITI-IoT";
 
-const char* password = "npiti-iot";
+const char* password = "NPITI-IoT";
 
-const char* mqtt server = "10.7.236.23";
+const char* mqtt_server = "10.7.236.23";
 
 const int mqtt_port = 1883;
 
-const char* pw = "phiot";
+const int mqtt_user = "PHIoT";
+
+const char* mqtt_pass = "phiot";
 
 const char* id = "esp-iot";
 
@@ -23,21 +26,10 @@ WiFiClient espClient;
 
 PubSubClient client(espClient);
 
-/*void reconnect(){
-  unsigned long iniciotentativa = millis();
-  bool mqttconectado = false;
-
-  do{
-    if(mqtt.Conectado && millis() - iniciotentativa > 1000){
-      mqttconectado 
-    }
-  }
-}*/
-
 void reconnect(){
    while (!client.connected()) {
     Serial.print("Tentando conexão MQTT...");
-    if (client.connect(client_id, mqtt_user, mqtt_pass)) {
+    if (client.connect(id, mqtt_user, mqtt_pass)) {
       Serial.println("Conectado ao broker MQTT!");
     } else {
       Serial.print("Falha na conexão, rc=");
@@ -55,6 +47,7 @@ void setup_wifi() {
   Serial.print("Conectando-se a ");
   Serial.println(ssid);
 
+  WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -79,7 +72,7 @@ void setup() {
 }
 
 void loop() {
-
+  
   if(!client.connected()){
     reconnect();
   }
@@ -93,6 +86,7 @@ void loop() {
   delay(2000); // Wait for a new reading from the sensor (DHT22 has ~0.5Hz sample rate)
 
   //leitura do sensor de presença
+  
   int value = digitalRead(PIN_PRESENCA);
   if (value == HIGH){
     Serial.println("foi identificado algum corno!");
