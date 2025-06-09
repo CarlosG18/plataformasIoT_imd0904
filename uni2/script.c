@@ -4,7 +4,7 @@
 #include <PubSubClient.h>
 
 const int DHT_PIN = 15;
-const int PIN_PRESENCA = 2;
+const int PIN_PRESENCA = 4;
 
 DHTesp dhtSensor;
 
@@ -16,7 +16,7 @@ const char* mqtt_server = "10.7.236.23";
 
 const int mqtt_port = 1883;
 
-const int mqtt_user = "PHIoT";
+const char* mqtt_user = "PHIoT";
 
 const char* mqtt_pass = "phiot";
 
@@ -82,18 +82,20 @@ void loop() {
   Serial.println("Humidity: " + String(data.humidity, 1) + "%");
   Serial.println("---");
   String payload = "Temp: " + String(data.temperature, 2) + "°C" + "Humidity: " + String(data.humidity, 1) + "%" ;
-  client.publish ("esp32-iot", payload.c_str());
+  client.publish ("/esp-iot", payload.c_str());
   delay(2000); // Wait for a new reading from the sensor (DHT22 has ~0.5Hz sample rate)
-
+  
   //leitura do sensor de presença
   
   int value = digitalRead(PIN_PRESENCA);
   if (value == HIGH){
     Serial.println("foi identificado algum corno!");
-    client.publish("esp32-iot", "Presença detectada!")
+    client.publish("/esp-iot", "Presença detectada!");
+    delay(2000);
   }else{
     Serial.println("Nenhum chifre a vista!");
-    client.publish("esp32-iot", "ninguém agora");
+    client.publish("/esp-iot", "ninguém agora");
+    delay(2000);
   }
 
   client.loop();
