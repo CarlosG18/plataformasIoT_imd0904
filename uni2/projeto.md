@@ -45,8 +45,5 @@ client: [mqttx](https://mqttx.app/web-client#/recent_connections)
 
 ## 🚀 Aplicação
 
-Este projeto pode ser usado em diversas situações:
-
-* **Automação residencial**: Acionamento de luzes ou alarmes ao detectar presença.
-* **Monitoramento climático**: Coleta de dados ambientais como temperatura e umidade.
-* **Sistemas de segurança**: Detecção de movimentação em ambientes restritos.
+- Dashboard:
+  instalar o `npm install node-red-dashboard`
