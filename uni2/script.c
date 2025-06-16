@@ -2,9 +2,11 @@
 #include <WiFiClient.h>
 #include "DHTesp.h"
 #include <PubSubClient.h>
+#include <ESP32Servo.h>
 
-#define LED_ALARME 18
+#define LED_ALARME 5
 #define LED_GAS 19
+Servo myservo;
 
 const int DHT_PIN = 15;
 const int PIN_PRESENCA = 4;
@@ -87,6 +89,9 @@ void setup_wifi() {
 }
 
 void setup() {
+  // definindo a pinagem do servo
+  myservo.attach(18); // attach servo on GPIO 18
+
   // definindo os leds
   pinMode(LED_ALARME, OUTPUT);
   pinMode(LED_GAS, OUTPUT);
@@ -102,11 +107,20 @@ void setup() {
   client.setCallback(callback);
 }
 
+void pisca_led(){
+  digitalWrite(LED_ALARME, HIGH);
+  delay(500);
+  digitalWrite(LED_ALARME, LOW);
+}
+
 void loop() {
   if(gas_on){
+    pisca_led();
     digitalWrite(LED_GAS, HIGH);
+    myservo.write(0);  // move to 90 degrees
   }else{
     digitalWrite(LED_GAS, LOW);
+    myservo.write(90);  // move to 90 degrees
   }
 
   Serial.println(gas_on);
