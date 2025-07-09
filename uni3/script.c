@@ -1,31 +1,51 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include "DHTesp.h"
-#include <PubSubClient.h>
+//#include <PubSubClient.h>
 
-#define LED_ALARME 5
-#define LED_GAS 19
+#define LED_ALARME_1 12
+#define LED_ALARME_2 14
+#define LED_ALARME_3 27
+
+#define BUTTON 4
 
 const int DHT_PIN = 15;
-const int PIN_DHT11
-
-bool gas_on = 1;
+int buttonState = 0;
 
 DHTesp dhtSensor;
+
+const char* ssid = "";
+
+const char* password = "";
 
 const char* mqtt_server = "";
 
 const int mqtt_port = 1883;
 
-const char* mqtt_user = "PHIoT";
+//const char* mqtt_user = "PHIoT";
 
-const char* mqtt_pass = "phiot";
+//const char* mqtt_pass = "phiot";
 
-const char* id = "esp-iot";
+//const char* id = "esp-iot";
 
 WiFiClient espClient;
+volatile bool ledState_verde = false;
+volatile bool ledState_amarelo = false;
+volatile bool ledState_vermelho = false;
 
-PubSubClient client(espClient);
+int contador = 0;
+
+// sensor de umidade capacitivo
+const int sensor_umi_cap = 34; // Pino onde o sensor está conectado
+int sensorValue = 0;
+
+//PubSubClient client(espClient);
+
+void IRAM_ATTR handleInterrupt() {
+  // Inverte o estado do LED
+  ledState_verde = !ledState_verde;
+  contador += 1;
+}
 
 void callback(char* topic, byte* message, unsigned int length) {
   String msg;
@@ -50,7 +70,7 @@ void callback(char* topic, byte* message, unsigned int length) {
 void reconnect(){
    while (!client.connected()) {
     Serial.print("Tentando conexão MQTT...");
-    if (client.connect(id, mqtt_user, mqtt_pass)) {
+    if (client.connect()) {
       Serial.println("Conectado ao broker MQTT!");
       client.subscribe("/esp-iot/gas");
     } else {
@@ -83,15 +103,15 @@ void setup_wifi() {
 }
 
 void setup() {
-  // definindo a pinagem do servo
-  myservo.attach(18); // attach servo on GPIO 18
-
   // definindo os leds
-  pinMode(LED_ALARME, OUTPUT);
-  pinMode(LED_GAS, OUTPUT);
+  pinMode(LED_ALARME_1, OUTPUT);
+  pinMode(LED_ALARME_2, OUTPUT);
+  pinMode(LED_ALARME_3, OUTPUT);
+
+  //definindo os botões
+  pinMode(BUTTON, INPUT);
 
   Serial.begin(115200);
-  pinMode(PIN_PRESENCA, INPUT);
   dhtSensor.setup(DHT_PIN, DHTesp::DHT22);
 
   setup_wifi();
@@ -99,47 +119,59 @@ void setup() {
   client.setServer(mqtt_server, mqtt_port);
   // cadastrando a função de callback
   client.setCallback(callback);
+
+  // Configura a interrupção no botão
+  attachInterrupt(digitalPinToInterrupt(BUTTON), handleInterrupt, FALLING);
 }
 
-void pisca_led(){
+/*void pisca_led(){
   digitalWrite(LED_ALARME, HIGH);
   delay(500);
   digitalWrite(LED_ALARME, LOW);
-}
+}*/
 
 void loop() {
-  if(gas_on){
-    pisca_led();
-    digitalWrite(LED_GAS, HIGH);
-    myservo.write(0);  // move to 90 degrees
-  }else{
-    digitalWrite(LED_GAS, LOW);
-    myservo.write(90);  // move to 90 degrees
-  }
-
-  Serial.println(gas_on);
-  
   if(!client.connected()){
     reconnect();
   }
 
+  if(contador > 0 && contador < 2){
+    digitalWrite(LED_ALARME_3, HIGH);  
+    client.publish ("HumidGuard/botao", 3);
+  }else if(contador > 2 && contador <= 4){
+    digitalWrite(LED_ALARME_2, HIGH);
+    digitalWrite(LED_ALARME_3, LOW);
+    client.publish ("HumidGuard/botao", 2);
+  }else if(contador > 5){
+    digitalWrite(LED_ALARME_1, HIGH);
+    digitalWrite(LED_ALARME_2, LOW);
+    digitalWrite(LED_ALARME_3, LOW);
+    client.publish ("HumidGuard/botao", 1);
+  }
+
+  //leitura do sensor DHT22
   TempAndHumidity  data = dhtSensor.getTempAndHumidity();
+
   String Temp = String(data.temperature, 2);
   String Humidity = String(data.humidity, 1);
-  //client.publish ("/esp-iot", payload.c_str());
-  client.publish ("/esp-iot/temp", Temp.c_str());
-  client.publish ("/esp-iot/hum", Humidity.c_str());
-  delay(2000); // Wait for a new reading from the sensor (DHT22 has ~0.5Hz sample rate)
   
-  //leitura do sensor de presença
-  int value = digitalRead(PIN_PRESENCA);
-  if (value == HIGH){
-    client.publish("/esp-iot/pres", "1");
-    delay(2000);
-  }else{
-    client.publish("/esp-iot/pres", "0");
-    delay(2000);
-  }
+  client.publish ("HumidGuard/dht11/temp", Temp.c_str());
+  client.publish ("HumidGuard/dht11/hum", Humidity.c_str());
+  delay(2000); // Wait for a new reading from the sensor (DHT22 has ~0.5Hz sample rate)
+
+  //leitura de sensor de umidade capacitivo
+  sensorValue = analogRead(sensor_umi_cap); // Lê o valor analógico
+  Serial.print("Valor do sensor: ");
+  Serial.println(sensorValue);
+
+  // Opcional: converter o valor para percentual (0–100%)
+  int porcentagemUmidade = map(sensorValue, 2650, 1000, 0, 100); // ajuste conforme o sensor
+  porcentagemUmidade = constrain(porcentagemUmidade, 0, 100);
+
+  Serial.print("Umidade estimada: ");
+  Serial.print(porcentagemUmidade);
+  Serial.println(" %");
+  client.publish ("HumidGuard/sensor_cap/umi", porcentagemUmidade.c_str());
 
   client.loop();
 }
