@@ -1,0 +1,49 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Diretórios de build/output
+dist/
+build/
+.cache/
+.next/
+out/
+coverage/
+tmp/
+temp/
+
+# Configurações do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Configurações de IDEs/editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos de ambiente
+.env
+.env.*.local
+.env.local
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+
+# Arquivos de lock antigos (se estiver usando apenas um gerenciador)
+# Se usa `npm`, ignore yarn.lock e pnpm-lock.yaml, por exemplo
+yarn.lock
+pnpm-lock.yaml
+
+# Optional: ignore database or upload folders
+uploads/
+database.sqlite
+
+package-lock.json
+package.json
