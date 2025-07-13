@@ -19,11 +19,25 @@ Na Unidade 1 da disciplina de Plataformas de Hardware para IoT, foi apresentada 
 
 ## 🚀 Unidade II
 
+Nesta segunda unidade, aprofundamos a construção e integração de sistemas embarcados com conectividade, explorando as etapas que tornam um dispositivo inteligente de fato “conectado”:
+
+- Revisamos diferentes protocolos de comunicação sem fio, como o **MQTT**, analisando sua arquitetura, características e adequação a projetos de IoT.
+
+- Realizamos integração entre sensores/atuadores e a nuvem, com envio e recepção de dados via MQTT, usando o ESP32 como plataforma principal.
+
+- Abordamos noções de segurança básica na **transmissão de dados**, como uso de **TLS**, **autenticação** e manutenção de conexões seguras.
+
+- Por fim, foi apresentado um estudo de caso prático: um sistema de monitoramento integrado com sensor de presença e sensor de temperatura/umidade, com envio de dados em tempo real e tratamento de alertas.
+
 ### 🎯 Atividades/projetos
 
 - [📌 Projeto: Monitoramento com Sensor de Presença e Sensor de Temperatura e Umidade](./uni2/projeto.md)
 
 ## 🚀 Unidade III
+
+Nesta unidade, demos continuidade ao desenvolvimento prático com foco no projeto final da disciplina. Inicialmente, realizamos a apresentação das ideias para validação, levando em consideração fatores como viabilidade técnica, disponibilidade de tempo e materiais. A proposta original era criar um **localizador de animais**, utilizando um módulo GPS acoplado à coleira de pets para rastreamento em tempo real. No entanto, devido a limitações de tempo e de hardware, essa ideia precisou ser ajustada.
+
+Como alternativa, optamos pelo desenvolvimento de um sistema de **monitoramento de pacientes**, cujo objetivo é acompanhar dados relevantes sobre umidade em tempo real, utilizando sensores conectados a uma plataforma embarcada. A descrição completa da proposta pode ser consultada neste [documento do projeto](https://docs.google.com/document/d/102Epipo-iWjMy_8HkRV5nxz7Ry_mMMuOo9uJP5FVlh0/edit?usp=sharing).
 
 ### 🎯 Atividades/projetos
 
