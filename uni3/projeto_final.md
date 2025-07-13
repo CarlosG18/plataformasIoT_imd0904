@@ -8,10 +8,12 @@ Este projeto tem como objetivo implementar um sistema de monitoramento remoto de
 
 foi desenvolvido a montagem do circuito online pela plataforma do wokiwi para realizar a simulação e um teste previo antes de realizar a montagem do circuito de fato.
 
-![imagem da simulação no workiwi]()
+<p align="center">
+  <img src="" alt="imagem da simulação no workiwi" width="600">
+</p>
 
 > [!IMPORTANT]\
-> É aconselhaveu elaborar o projeto primeiro em plataformas onlines como o [wokiwi](https://wokwi.com/) para realizar simulações e observar o comportamento dos elementos para evitar queima de componentes e mal uso deles.
+> É aconselhavel elaborar o projeto primeiro em plataformas onlines como o [wokiwi](https://wokwi.com/) para realizar simulações e observar o comportamento dos elementos para evitar queima de componentes e mal uso deles.
 
 ### 🔧 Sensores e Materiais Utilizados
 
@@ -21,7 +23,9 @@ foi desenvolvido a montagem do circuito online pela plataforma do wokiwi para re
 * **Jumpers e protoboard**
 * **Fonte de alimentação USB ou bateria**
 
-![Imagem do circuito montado]() 
+<p align="center">
+  <img src="./imgs/montagem_circuito.jpeg" alt="Imagem do circuito montado" width="600">
+</p>
 
 ---
 
@@ -37,25 +41,76 @@ Para permitir a comunicação entre o ESP e a interface de visualização (Node-
 
   > Neste projeto, utilizamos o **Mosquitto** como broker MQTT.
 
-### Passo a passo para configuração do broker Mosquitto
+### ⚙️ Passo a passo para configuração do broker Mosquitto
 
-1. instalar o mosquitto na sua maquina:
+#### 1. Instalar o Mosquitto na sua máquina
 
-utilizei o linux então pode ser que para o windows possua alguma etapa diferente, porém a ideia é a mesma.
+No Linux (Debian/Ubuntu), você pode instalar o Mosquitto e suas ferramentas com o seguinte comando:
 
 ```bash
-$ 
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
 ```
 
-2. Atualizar o arquivo de configuração do mosquitto `mosquitto.conf`
+> ⚠️ Caso esteja utilizando Windows, é possível baixar os executáveis no site oficial do projeto Mosquitto:
+> [https://mosquitto.org/download/](https://mosquitto.org/download/)
 
-- acessar o diretorio onde esta esse arquivo;
-- falar como colocar a senha no broker;
-- mostrar qual configuração básica deve ser inserida para rodar o serviço do mosquitto;
-- rodar o serviço.
-
-3. mostrar no codigo como é feito o envio dos topicos
 ---
+
+#### 2. Atualizar o arquivo de configuração `mosquitto.conf`
+
+O arquivo de configuração geralmente fica em:
+
+```bash
+/etc/mosquitto/mosquitto.conf
+```
+
+Nesse arquivo a configuração basica (se o seu projeto não nessecitar de senha) deve ser:
+
+```conf
+listener 1883 0.0.0.0
+allow_anonymous true
+```
+
+##### 🚀 Iniciar o serviço com a configuração
+
+Você pode reiniciar o serviço Mosquitto para aplicar a nova configuração:
+
+```bash
+sudo systemctl restart mosquitto
+```
+
+##### 🧪 Testando o broker Mosquitto com `mosquitto_pub` e `mosquitto_sub`
+
+Com o broker do Mosquitto rodando na sua máquina, você pode criar tópicos e consumi-los para verificar se tudo está funcionando corretamente. Para isso, utilize os comandos abaixo em dois terminais diferentes:
+
+#### ✅ 1. Consumir mensagens (ou seja, **assinar** um tópico)
+
+Em um terminal, rode o seguinte comando para escutar um tópico:
+
+```bash
+mosquitto_sub -h localhost -p 1883 -t "teste/topico"
+```
+
+> Esse terminal ficará aguardando mensagens enviadas para o tópico `teste/topico`.
+
+---
+
+#### 📤 2. Publicar uma mensagem no tópico
+
+Em outro terminal, publique uma mensagem no mesmo tópico:
+
+```bash
+mosquitto_pub -h localhost -p 1883 -t "teste/topico" -m "Olá, Mosquitto!"
+```
+
+> A mensagem `"Olá, Mosquitto!"` será exibida no primeiro terminal, confirmando que o broker está funcionando.
+
+---
+
+✅ **Dicas úteis**:
+
+* Para ver todos os tópicos sendo utilizados no broker (caso ele esteja configurado para isso), você pode usar ferramentas de client MQTT como o [MQTTX](https://mqttx.app/).
 
 ## 🌐 Node-RED
 
@@ -64,6 +119,10 @@ O **Node-RED** é uma ferramenta baseada em fluxo para conectar dispositivos de 
 ### Comunicação Node-RED -> broker
 
 explicar como o node-red se comunica com o broker.
+
+<p align="center">
+  <img src="" alt="imagem do node-red" width="600">
+</p>
 
 ### 🖥️ Dashboard
 
@@ -78,23 +137,6 @@ A dashboard foi configurada com elementos como:
 * Indicadores numéricos
 * Alertas visuais para limites críticos
 
-![imagem do dashboard]()
-
----
-
-## 📦 Estrutura do Projeto
-
-```plaintext
-📁 monitoramento-pacientes/
-├── circuitos/
-│   └── esquema_circuito.png
-├── codigo_esp/
-│   └── main.ino
-├── node-red/
-│   └── fluxo.json
-├── README.md
-```
-
-## Como rodar o projeto na sua máquina?
-
-- elaborar etapas para que qualquer pessoa possa rodar o projeto em seu ambiente.
+<p align="center">
+  <img src="" alt="Imagem da dashboard" width="600">
+</p>
