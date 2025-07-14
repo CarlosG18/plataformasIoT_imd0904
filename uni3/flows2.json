@@ -1,0 +1,620 @@
+[
+    {
+        "id": "2d02eb562ef1103c",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d06be435c878364f",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "5de72fdc5f9c4fcd",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7616df56bc117673",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "d06be435c878364f",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fd139fd2fcdd0115",
+        "type": "ui_tab",
+        "name": "Data",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7f2f961e1c4f7a1b",
+        "type": "ui_group",
+        "name": "Dados",
+        "tab": "fd139fd2fcdd0115",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aba",
+        "type": "ui_tab",
+        "name": "Painel Incêndio",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "grupo",
+        "type": "ui_group",
+        "name": "Monitoramento",
+        "tab": "aba",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "7abd0e27e8997454",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "teste"
+    },
+    {
+        "id": "c36d2f0260b33e02",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.7.221.202",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a0043675cadb1e7a",
+        "type": "mqtt in",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "topic": "teste",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "c36d2f0260b33e02",
+        "nl": true,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 300,
+        "wires": [
+            [
+                "5ccc7c950a96be96",
+                "dc56343abd706fc1",
+                "6dd7b1b6edc1b82c",
+                "c366e1c62debee9b",
+                "78aebdfba8228ed9"
+            ]
+        ]
+    },
+    {
+        "id": "5ccc7c950a96be96",
+        "type": "debug",
+        "z": "2d02eb562ef1103c",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c1bbcf1c31f3a839",
+        "type": "debug",
+        "z": "2d02eb562ef1103c",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "dc56343abd706fc1",
+        "type": "ui_gauge",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "group": "7f2f961e1c4f7a1b",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "ºC",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 450,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0c9b08c9abca8d7d",
+        "type": "mqtt in",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "topic": "/esp-iot/pres",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c36d2f0260b33e02",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 480,
+        "wires": [
+            [
+                "c1bbcf1c31f3a839",
+                "32bffab4dd0f0ec8",
+                "faef974cd75e1e17"
+            ]
+        ]
+    },
+    {
+        "id": "40082a5fde7a36c0",
+        "type": "mqtt in",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "topic": "/esp-iot/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "c36d2f0260b33e02",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 600,
+        "wires": [
+            [
+                "f6e4c5a7993d4a03",
+                "5f64d08c0b4ff122",
+                "9e755029f185e0a0"
+            ]
+        ]
+    },
+    {
+        "id": "f5705d5624addd89",
+        "type": "comment",
+        "z": "2d02eb562ef1103c",
+        "name": "Temperatura",
+        "info": "",
+        "x": 70,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a5bc13e2b6a0bffe",
+        "type": "comment",
+        "z": "2d02eb562ef1103c",
+        "name": "Presença",
+        "info": "",
+        "x": 80,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a7396f5ff2392f13",
+        "type": "comment",
+        "z": "2d02eb562ef1103c",
+        "name": "Humidade",
+        "info": "",
+        "x": 80,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f6e4c5a7993d4a03",
+        "type": "debug",
+        "z": "2d02eb562ef1103c",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "5f64d08c0b4ff122",
+        "type": "ui_gauge",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "group": "7f2f961e1c4f7a1b",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidade",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 450,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "32bffab4dd0f0ec8",
+        "type": "ui_chart",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "group": "7f2f961e1c4f7a1b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Presença",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 320,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47886ca62f6f8b8d",
+        "type": "mqtt out",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "topic": "testehh",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c36d2f0260b33e02",
+        "x": 860,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6dd7b1b6edc1b82c",
+        "type": "function",
+        "z": "2d02eb562ef1103c",
+        "name": "function 1",
+        "func": "// Simula alerta quando presença e temperatura alta\nconst presenca = flow.get('presenca') || 0;\nconst temp = msg.payload;\nconst umidade = flow.get('umidade') || 0;\n\nif (temp > 15 && umidade < 50) {\n    return { payload: '🔥 ALERTA DE INCÊNDIO!' };\n} else {\n    return { payload: 'Sem alerta' };\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "0f5732713a3c1b80"
+            ]
+        ]
+    },
+    {
+        "id": "0f5732713a3c1b80",
+        "type": "ui_text",
+        "z": "2d02eb562ef1103c",
+        "group": "7f2f961e1c4f7a1b",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Alerta",
+        "label": "Status de Alerta",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 830,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c366e1c62debee9b",
+        "type": "function",
+        "z": "2d02eb562ef1103c",
+        "name": "function 2",
+        "func": "// Simula alerta quando presença e temperatura alta\nconst umidade = flow.get('umidade') || 0;\n//const presenca = flow.get('presenca') || 0;\nconst temp = msg.payload;\n\nif (temp > 15 && umidade < 50) {\n    return { payload: true };\n} else {\n    return { payload: false };\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "56b22c2950550819"
+            ]
+        ]
+    },
+    {
+        "id": "56b22c2950550819",
+        "type": "mqtt out",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "topic": "testehhh",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c36d2f0260b33e02",
+        "x": 900,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "faef974cd75e1e17",
+        "type": "function",
+        "z": "2d02eb562ef1103c",
+        "name": "function 3",
+        "func": "flow.set(\"presenca\", msg.payload);\nreturn null; // não precisa continuar o fluxo",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e755029f185e0a0",
+        "type": "function",
+        "z": "2d02eb562ef1103c",
+        "name": "function 4",
+        "func": "flow.set(\"umidade\", msg.payload);\nreturn null; // não precisa continuar o fluxo",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "78aebdfba8228ed9",
+        "type": "function",
+        "z": "2d02eb562ef1103c",
+        "name": "function 5",
+        "func": "// Simula alerta quando presença e temperatura alta\nconst umidade = flow.get('umidade') || 0;\nconst presenca = flow.get('presenca') || 0;\nconst temp = msg.payload;\n\nif (temp > 15 && umidade < 50 && presenca) {\n    return { payload: true };\n} else {\n    return { payload: false };\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 440,
+        "wires": [
+            [
+                "47886ca62f6f8b8d",
+                "4ab3baa68852a796"
+            ]
+        ]
+    },
+    {
+        "id": "4ab3baa68852a796",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "2d02eb562ef1103c",
+        "name": "",
+        "credtype": "account",
+        "account": "7abd0e27e8997454",
+        "text": "tá pegando fodo bicho!",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "str",
+        "rejectssl": false,
+        "x": 620,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    }
+]
