@@ -9,6 +9,7 @@
 
 #define BUTTON_INCREMENTA  4
 #define BUTTON_RESETA     5
+#define BUTTON_SAIDA     18
 
 const int DHT_PIN = 15;
 int buttonState = 0;
@@ -33,10 +34,13 @@ WiFiClient espClient;
 volatile bool ledState_verde = false;
 volatile bool ledState_amarelo = false;
 volatile bool ledState_vermelho = false;
+bool saida_infermeiro = false;
+bool first = true;
 
 volatile unsigned long lastInterruptTime = 0;
 volatile unsigned long lastInterruptTimeReseta = 0;
 volatile unsigned long lastInterruptTimeIncrementa = 0;
+volatile unsigned long lastInterruptTimeSaida = 0;
 
 const unsigned long debounceDelay = 200; // em milissegundos
 
@@ -57,10 +61,17 @@ void IRAM_ATTR handleIncrementa() {
 }
 
 void IRAM_ATTR handleReseta() {
-  Serial.print("acionou o reset");
   unsigned long tempoAgora = millis();
   if (tempoAgora - lastInterruptTimeReseta > debounceDelay) {
     contador = 0;
+    lastInterruptTimeReseta = tempoAgora;
+  }
+}
+
+void IRAM_ATTR handleSaida() {
+  unsigned long tempoAgora = millis();
+  if (tempoAgora - lastInterruptTimeSaida > debounceDelay) {
+    saida_infermeiro = true;
     lastInterruptTimeReseta = tempoAgora;
   }
 }
@@ -85,7 +96,6 @@ void callback(char* topic, byte* message, unsigned int length) {
   }*/
 }
 
-
 void reconnect(){
    while (!client.connected()) {
     Serial.print("Tentando conexão MQTT...");
@@ -100,7 +110,6 @@ void reconnect(){
     }
   }
 }
-
 
 void setup_wifi() {
   delay(10);
@@ -130,6 +139,7 @@ void setup() {
   //definindo os botões
   pinMode(BUTTON_INCREMENTA, INPUT);
   pinMode(BUTTON_RESETA, INPUT);
+  pinMode(BUTTON_SAIDA, INPUT);
 
   Serial.begin(115200);
   dhtSensor.setup(DHT_PIN, DHTesp::DHT22);
@@ -143,6 +153,7 @@ void setup() {
   // Configura a interrupção no botão
   attachInterrupt(digitalPinToInterrupt(BUTTON_INCREMENTA), handleIncrementa, RISING);
   attachInterrupt(digitalPinToInterrupt(BUTTON_RESETA), handleReseta, RISING);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_SAIDA), handleSaida, RISING);
 }
 
 void pisca_led(){
@@ -155,10 +166,21 @@ void loop() {
   if(!client.connected()){
     reconnect();
   }
-  Serial.println(contador);
-  if(contador > 0 && contador <= 2){
+
+  if(contador == 0){
+    digitalWrite(LED_ALARME_1, LOW);
+    digitalWrite(LED_ALARME_2, LOW);
+    digitalWrite(LED_ALARME_3, LOW);
+    if(first){
+      client.publish ("HumidGuard/situacao", "4");
+      first = false;
+    }
+    client.publish ("HumidGuard/situacao", "2");
+    client.publish ("HumidGuard/botao", "4");
+  }else if(contador > 0 && contador <= 2){
     digitalWrite(LED_ALARME_1, HIGH);  
-    client.publish ("HumidGuard/botao", "3");
+    client.publish ("HumidGuard/botao", "1");
+    client.publish ("HumidGuard/situacao", "1");
   }else if(contador > 2 && contador <= 4){
     digitalWrite(LED_ALARME_2, HIGH);
     digitalWrite(LED_ALARME_1, LOW);
@@ -167,12 +189,13 @@ void loop() {
     digitalWrite(LED_ALARME_3, HIGH);
     digitalWrite(LED_ALARME_2, LOW);
     digitalWrite(LED_ALARME_1, LOW);
-    client.publish ("HumidGuard/botao", "1");
-  }/*else if(contador == 0){
-    digitalWrite(LED_ALARME_3, LOW);
-    digitalWrite(LED_ALARME_2, LOW);
-    digitalWrite(LED_ALARME_1, LOW);
-  }*/
+    client.publish ("HumidGuard/botao", "3");
+  }
+
+  if(saida_infermeiro){
+    client.publish ("HumidGuard/situacao", "3");
+    saida_infermeiro = false;
+  }
 
   //leitura do sensor DHT22
   TempAndHumidity  data = dhtSensor.getTempAndHumidity();
